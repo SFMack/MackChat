@@ -3,6 +3,9 @@ const express = require('express');
 const socketio = require('socket.io');
 const http = require('http');
 
+// import our helper functions
+const { addUser, removeUser, getUser, getUsersInRoom } = require('./users');
+
 // setup port
 const PORT = process.env.PORT || 5000;
 
@@ -18,7 +21,13 @@ const io = socketio(server);
 
 // manage the socket connection
 io.on('connection', socket => {
-	console.log('We have a new connection');
+	// setting up the response to the event we fired on the clientside using the exact
+	// same event name and passing in a callback function to the `on` method
+	socket.on('join', ({ name, room }, callback) => {
+		const { error, user } = addUser({ id: socket.id, name, room });
+
+		if (error) return callback(error);
+	});
 
 	socket.on('disconnect', () => {
 		console.log('User has left');
