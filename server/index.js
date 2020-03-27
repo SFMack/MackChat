@@ -2,6 +2,7 @@
 const express = require('express');
 const socketio = require('socket.io');
 const http = require('http');
+const cors = require('cors');
 
 // import our helper functions
 const { addUser, removeUser, getUser, getUsersInRoom } = require('./users');
@@ -18,6 +19,11 @@ const app = express();
 // setup socket.io
 const server = http.createServer(app);
 const io = socketio(server);
+
+// use router as middleware
+app.use(router);
+// use cors middleware
+app.use(cors());
 
 // manage the socket connection
 io.on('connection', socket => {
@@ -73,8 +79,5 @@ io.on('connection', socket => {
 		}
 	});
 });
-
-// use router as middleware
-app.use(router);
 
 server.listen(PORT, () => console.log(`server has started on port ${PORT}`));
