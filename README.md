@@ -1,3 +1,20 @@
-# MackChat
+# Project Name
+project description
 
-A React application that was built using React, Node, and Socket.io 
+## Functionality
+lorem
+
+## Status
+lorem
+
+## Tech
+lorem
+
+## Bugs
+lorem
+
+## How To Use
+lorem
+
+## Plans for the future
+lorem
